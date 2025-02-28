@@ -1,6 +1,7 @@
 import unittest
 
-from textnode import TextNode, TextType
+from textnode import TextNode, TextType, text_node_to_html_node
+from leafnode import LeafNode
 
 
 class TestTextNode(unittest.TestCase):
@@ -22,7 +23,20 @@ class TestTextNode(unittest.TestCase):
         node = TextNode("This is bold text", TextType.BOLD)
         node2 = TextNode("This is normal text", TextType.NORMAL)
         self.assertNotEqual(node, node2)
-
+    
+    def test_convert_to_leaf_node(self):
+        text_node = TextNode("A normal text", TextType.NORMAL)
+        leaf_node = text_node_to_html_node(text_node)
+        self.assertEqual(leaf_node.to_html(), "A normal text")
+        text_node = TextNode("A bold text", TextType.BOLD)
+        leaf_node = text_node_to_html_node(text_node)
+        self.assertEqual(leaf_node.to_html(), "<b>A bold text</b>")
+        text_node = TextNode("An image", TextType.IMAGE, "https://x.com")
+        leaf_node = text_node_to_html_node(text_node)
+        self.assertEqual(leaf_node.to_html(), '<img src="https://x.com" alt="An image">')
+        text_node = TextNode("A Link to google", TextType.LINK, "https://google.com")
+        leaf_node = text_node_to_html_node(text_node)
+        self.assertEqual(leaf_node.to_html(), '<a href="https://google.com">A Link to google</a>')
 
 
 if __name__ == "__main__":
