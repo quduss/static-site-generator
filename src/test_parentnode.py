@@ -19,12 +19,12 @@ class TestParentNode(unittest.TestCase):
         self.assertEqual(parent_node.to_html(), "<div><span>child</span></div>")
     
     def test_to_html_with_grandchildren(self):
-        grandchild_node = LeafNode("b", "grandchild")
-        child_node = ParentNode("span", [grandchild_node])
-        parent_node = ParentNode("div", [child_node])
+        grandchild_node = LeafNode("b", "grandchild", {"class": "grand-child"})
+        child_node = ParentNode("span", [grandchild_node], {"class": "child-node"})
+        parent_node = ParentNode("div", [child_node], {"class": "parent-node"})
         self.assertEqual(
             parent_node.to_html(),
-            "<div><span><b>grandchild</b></span></div>",
+            '<div class="parent-node"><span class="child-node"><b class="grand-child">grandchild</b></span></div>',
         )
 
 
