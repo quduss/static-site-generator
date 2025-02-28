@@ -9,8 +9,8 @@ class TestTextNode(unittest.TestCase):
         node = TextNode("This is a text node", TextType.BOLD)
         node2 = TextNode("This is a text node", TextType.BOLD)
         self.assertEqual(node, node2)
-        node = TextNode("This is a text node with url", TextType.NORMAL, "https://x.com")
-        node2 = TextNode("This is a text node with url", TextType.NORMAL, "https://x.com")
+        node = TextNode("This is a text node with url", TextType.TEXT, "https://x.com")
+        node2 = TextNode("This is a text node with url", TextType.TEXT, "https://x.com")
         self.assertEqual(node, node2)
 
     def test_not_eq(self):
@@ -21,11 +21,11 @@ class TestTextNode(unittest.TestCase):
         node2 = TextNode("This is an italic text with no url", TextType.ITALIC)
         self.assertNotEqual(node, node2)
         node = TextNode("This is bold text", TextType.BOLD)
-        node2 = TextNode("This is normal text", TextType.NORMAL)
+        node2 = TextNode("This is normal text", TextType.TEXT)
         self.assertNotEqual(node, node2)
     
     def test_convert_to_leaf_node(self):
-        text_node = TextNode("A normal text", TextType.NORMAL)
+        text_node = TextNode("A normal text", TextType.TEXT)
         leaf_node = text_node_to_html_node(text_node)
         self.assertEqual(leaf_node.to_html(), "A normal text")
         text_node = TextNode("A bold text", TextType.BOLD)
