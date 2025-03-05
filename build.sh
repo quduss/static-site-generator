@@ -1,1 +1,1 @@
-python3 src/main.py "/https://github.com/quduss/static-site-generator/tree/main/docs/"
+python3 src/main.py "/static-site-generator/tree/main/docs/"
